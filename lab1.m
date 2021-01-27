@@ -5,4 +5,9 @@ Kt = 0.01;
 I = 6*10^-4;
 b = 10^-4;
 
-disp("lakmal a lame boy")
+A = [0 1 0; 0 (-b/I) (Kt/I); 0 (-Ke/La) (-Ra/La)];
+B = [0; 0; (1/La)];
+C = [0; 1; 0];
+D = zeros(3,1);
+
+disp(A)
