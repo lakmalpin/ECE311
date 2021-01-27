@@ -21,4 +21,20 @@ motor_simplified = ss(A1,B1,C1,D1);
 G_motor = tf(motor);
 G_motor_simplified = tf(motor_simplified);
 
-disp(motor);
+zpk_motor = zpk(motor);
+
+[zeros, poles, gain] = zpkdata(G_motor);
+poles = cell2mat(poles);
+
+[num, den] = tfdata(G_motor);
+num = cell2mat(num);
+den = cell2mat(den);
+
+[num1, den1] = tfdata(G_motor_simplified);
+num1 = cell2mat(num1);
+den1 = cell2mat(den1);
+
+disp(num);
+disp(den);
+disp(num1);
+disp(den1);
