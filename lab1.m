@@ -7,14 +7,18 @@ b = 10^-4;
 
 A = [0 1 0; 0 (-b/I) (Kt/I); 0 (-Ke/La) (-Ra/La)];
 B = [0; 0; (1/La)];
-C = [0; 1; 0];
-D = zeros(3,1);
-
-disp(A)
+C = [0 1 0];
+D = 0;
 
 A1 = [0 1; 0 -(b + (Ke*Kt)/Ra)/I];
-B1 = [0; Kt/(Ra/I)];
-C1 = [0; 1];
-D1 = zeros(2,1);
+B1 = [0; (Kt/(Ra/I))];
+C1 = [0 1];
+D1 = 0;
 
-disp(A1)
+motor = ss(A,B,C,D);
+motor_simplified = ss(A1,B1,C1,D1);
+
+G_motor = tf(motor);
+G_motor_simplified = tf(motor_simplified);
+
+disp(motor);
