@@ -1,3 +1,5 @@
+%#ok<*NOPTS>
+
 La = 0.02;
 Ra = 3;
 Ke =0.01;
@@ -34,7 +36,9 @@ den = cell2mat(den);
 num1 = cell2mat(num1);
 den1 = cell2mat(den1);
 
-disp(num);
-disp(den);
-disp(num1);
-disp(den1);
+zpk_motor 
+poles
+num
+den
+num1
+den1
