@@ -5,4 +5,4 @@ Kt = 0.01;
 I = 6*10^-4;
 b = 10^-4;
 
-disp("sowrov a lame boy")
+disp("lakmal a lame boy")
