@@ -11,3 +11,10 @@ C = [0; 1; 0];
 D = zeros(3,1);
 
 disp(A)
+
+A1 = [0 1; 0 -(b + (Ke*Kt)/Ra)/I];
+B1 = [0; Kt/(Ra/I)];
+C1 = [0; 1];
+D1 = zeros(2,1);
+
+disp(A1)
