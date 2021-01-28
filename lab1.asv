@@ -71,14 +71,5 @@ figure();
 Y3 = step(motor_armature_current, T);
 plot(T,Y3);
 
-figure();
-
 X0 = [0;-1;.5];
-lsim(motor,sin(T),T,X0);
-
-s = 1i;
-amp = evalfr(G_motor,s);
-amp
-
-absG = 833.3/(s^2+150.2*s+33.33);
-absG
+lsim(motor,sin(T),X0];
