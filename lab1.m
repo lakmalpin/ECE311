@@ -44,3 +44,16 @@ den
 num1
 den1
 %}
+
+T = 0:30:30*1000;
+
+subplot(3,1,1);
+Y1 = step(motor, T);
+plot(T,Y1);
+
+subplot(3,1,2);
+Y2 = step(motor_simplified, T);
+plot(T,Y2);
+
+subplot(3,1,3);
+plot(T,Y1-Y2);
