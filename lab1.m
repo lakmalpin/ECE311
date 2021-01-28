@@ -36,9 +36,11 @@ den = cell2mat(den);
 num1 = cell2mat(num1);
 den1 = cell2mat(den1);
 
+%{
 zpk_motor 
 poles
 num
 den
 num1
 den1
+%}
