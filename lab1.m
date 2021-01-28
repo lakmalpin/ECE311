@@ -45,7 +45,7 @@ num1
 den1
 %}
 
-T = 0:30:30*1000;
+T = linspace(0,30,1000);
 
 subplot(3,1,1);
 Y1 = step(motor, T);
