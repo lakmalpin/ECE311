@@ -45,14 +45,15 @@ den = cell2mat(den);
 num1 = cell2mat(num1);
 den1 = cell2mat(den1);
 
-%{
+G_motor
+G_motor_simplified
 zpk_motor 
 poles
 num
 den
 num1
 den1
-%}
+
 
 %times
 T = linspace(0,30,1000);
@@ -85,6 +86,8 @@ plot(T,Y1-Y2);
 title({'Difference between Real and Simplified Armature:','Speed vs. Time with Step Response'})
 xlabel('Time (s)')
 ylabel('Speed (m/s)')
+
+y
 
 figure();
 
@@ -122,6 +125,9 @@ s = 1i;
 amp = evalfr(G_motor,s);
 amp
 
-%Verify that previous amplitude is equal to |
+%Verify that previous amplitude is approximately |G(i)|
 absG = abs(amp);
 absG
+
+%Max error, approximate asymptotic motor speed, theoretical " " ", fix
+%variable names

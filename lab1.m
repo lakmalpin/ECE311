@@ -45,7 +45,8 @@ den = cell2mat(den);
 num1 = cell2mat(num1);
 den1 = cell2mat(den1);
 
-
+G_motor
+G_motor_simplified
 zpk_motor 
 poles
 num
@@ -67,6 +68,9 @@ title('Real Motor: Speed vs. Time with Step Response')
 xlabel('Time (s)')
 ylabel('Speed (m/s)')
 
+%The approximate asymptotic value of motor speed in response to a unit step
+approx = Y1(1000)
+
 %Second subplot
 subplot(3,1,2);
 
@@ -85,6 +89,9 @@ plot(T,Y1-Y2);
 title({'Difference between Real and Simplified Armature:','Speed vs. Time with Step Response'})
 xlabel('Time (s)')
 ylabel('Speed (m/s)')
+
+%Finds magnitude of error using third subplot
+error = abs(min(Y1-Y2))
 
 figure();
 
@@ -114,17 +121,18 @@ title('Real Armature: Output Response with Input Sinusoidal Signal')
 ylabel('Speed (m/s)')
 
 %Calculate the average amplitude of previous plot
-amp1 = rms(lsim(motor,sin(T),T,X0))*(sqrt(2));
+y = lsim(motor,sin(T),T,X0);
+amp1 = rms(y)*(sqrt(2));
 amp1
 
 %Evaluate the frequency response of the motor transfer function at s = i
 s = 1i;
-amp = evalfr(G_motor,s);
-amp
+motor_at_i = evalfr(G_motor,s);
+motor_at_i
 
 %Verify that previous amplitude is approximately |G(i)|
-absG = abs(amp);
-absG
+theoretical_Amp = abs(amp);
+theoretical_Amp
 
 %Max error, approximate asymptotic motor speed, theoretical " " ", fix
 %variable names
