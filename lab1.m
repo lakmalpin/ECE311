@@ -131,7 +131,7 @@ motor_at_i = evalfr(G_motor,s);
 motor_at_i
 
 %Verify that previous amplitude is approximately |G(i)|
-theoretical_Amp = abs(amp);
+theoretical_Amp = abs(motor_at_i);
 theoretical_Amp
 
 %Max error, approximate asymptotic motor speed, theoretical " " ", fix
