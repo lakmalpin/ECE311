@@ -77,7 +77,7 @@ subplot(3,1,2);
 %Plot step response of state space model of Simplified Motor
 Y2 = step(motor_simplified, T);
 plot(T,Y2);
-title('Simplified Armature: Speed vs. Time with Step Response')
+title('Simplified Motor: Speed vs. Time with Step Response')
 xlabel('Time (s)')
 ylabel('Speed (m/s)')
 
@@ -86,7 +86,7 @@ subplot(3,1,3);
 
 %Plot the difference between the first and second subplot
 plot(T,Y1-Y2);
-title({'Difference between Real and Simplified Armature:','Speed vs. Time with Step Response'})
+title({'Difference between Real and Simplified Motor:','Speed vs. Time with Step Response'})
 xlabel('Time (s)')
 ylabel('Speed (m/s)')
 
@@ -108,7 +108,7 @@ motor_armature_current = ss(A,B,C_current,D);
 %Plot step response of state space model of Motor with Current Output 
 Y3 = step(motor_armature_current, T);
 plot(T,Y3);
-title('Real Armature: Current vs. Time with Step Response')
+title('Real Motor: Current vs. Time with Step Response')
 xlabel('Time (s)')
 ylabel('Current (A)')
 
@@ -117,7 +117,7 @@ figure();
 %Plots the time response of the State Space Model of Motor with a sinusodial input
 X0 = [0;-1;.5];
 lsim(motor,sin(T),T,X0);
-title('Real Armature: Output Response with Input Sinusoidal Signal')
+title('Real Motor: Output Response with Input Sinusoidal Signal')
 ylabel('Speed (m/s)')
 
 %Calculate the average amplitude of previous plot
