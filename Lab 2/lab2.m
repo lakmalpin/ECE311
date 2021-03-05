@@ -70,3 +70,5 @@ CONTROLLER = tf(num, den);
 %Extract the list of zeros of 1 - C(s)G(s)
 [zeros, poles, gain] = zpkdata(1 - (CONTROLLER * G_magBall));
 
+K
+
