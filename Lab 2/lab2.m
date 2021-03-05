@@ -1,3 +1,5 @@
+%Output 2 Code follows
+
 M = 0.1;
 La = 0.05;
 Ra = 3;
@@ -26,8 +28,25 @@ G_magBall = tf(ssmagBall);
 %ZPK form of Real Motor
 zpk_magBall = zpk(ssmagBall);
 
-%Extract the list of poles of the transfer function of Motor
+%Extract the list of poles of the transfer function
 [zeros, poles, gain] = zpkdata(G_magBall);
 poles = cell2mat(poles);
 
 eigA1 = eig(A1);
+
+
+%Output 3 Code follows
+
+% Define tuning parameters
+z = 10;
+p = 100;
+K = 100;
+
+% Create an LTI system object representing lead controller transfer function
+num = [K (K*z)];
+den = [1 p];
+CONTROLLER = tf(num, den);
+
+%Extract the list of zeros of 1 - C(s)G(s)
+[zeros, poles, gain] = zpkdata(1 - (CONTROLLER * G_magBall));
+
