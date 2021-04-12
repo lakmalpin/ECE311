@@ -27,6 +27,7 @@ G = tf(A,[1,B,0]);
 initial_crossover = 20;
 
 %Solve for K
+%K|G i(initial_crossover)| = 1.
 K = 1/abs(evalfr(G,1i*(initial_crossover)));
 K_G = K*G;
 
