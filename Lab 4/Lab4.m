@@ -1,0 +1,119 @@
+%#ok<*NOPTS>
+
+%Defining parameters and plant model
+
+%Constants defined
+Ra = 3;
+Ke = 0.01;
+Kt = 0.01;
+I = 6e-4;
+b = 1e-4;
+
+thetades = pi/2;
+tau_1 = 0.01;
+d_bar = (Ra/Kt)*(tau_1);
+Vlim = 5;
+
+%Constants for transfer function G
+A = Kt/(Ra*I);
+B = (b+(Ke*Kt)/Ra)/I;
+
+%Create transfer function G
+G = tf(A,[1,B,0]);
+
+
+%Design of controller C1(s)
+
+initial_crossover = 20;
+
+%Solve for K
+%K|G i(initial_crossover)| = 1.
+K = 1/abs(evalfr(G,1i*(initial_crossover)));
+K_G = K*G;
+
+%plot K*G
+bode(K_G, {1e-2,1e2});
+
+alpha = 0.1;
+
+%extract omega_bar
+[~,~,~,omega_bar] = margin((K*G)/sqrt(alpha));
+
+%Use equation in lab handout to solve for T
+T = 1/(sqrt(alpha)*omega_bar);
+
+%Create lead controller
+C1 = tf([K*T,K],[alpha*T,1]);
+C1_G = C1*G;
+
+%Create bode plots to compare lead controller, and constant K with G
+figure(1);
+hold on;
+bode(G, {1e-2,1e2});
+bode(C1_G, {1e-2,1e2});
+[Gm_C1G, Pm_C1G, Wcg_C1G, Wcp_C1G] = margin(C1*G);
+legend();
+hold off;
+
+%K
+%alpha
+%T
+
+%Design of controller C2(s)
+
+%Initialize Ti and create PI controller
+Ti = 10/Wcp_C1G;
+C2 = tf([Ti,1],[Ti,0]);
+
+%Create C*G and extract gain crossover frequency
+C = C1*C2;
+C_G = C*G;
+
+[~, Pm_CG, ~, Wcp_CG] = margin(C_G);
+
+%Wcp_C1G
+%Wcp_CG
+%Pm_C1G
+%Pm_CG
+
+figure(2);
+bode((G/(1+C*G))); %The magitude plot is always below -34 dB
+title("Bode Diagram of G/(1+C*G)")
+
+%Find TR and TD transfer functions and eliminate pole/zero cancellations
+T_R = (C*G)/(1+C*G);
+T_R = minreal(T_R);
+T_D = (G)/(1+C*G);
+T_D = minreal(T_D);
+
+
+%Plot step response of R(s)*T_R and D(s)*T_D
+figure(3);
+subplot(2,1,1);
+step(thetades*T_R);
+title('Step Response of thetades*T_R');
+
+
+subplot(2,1,2); 
+step(d_bar*T_D);
+title('Step Response of dbar*T_D');
+
+S = stepinfo(thetades*T_R);
+
+%Plot bode plots of C
+figure(4);
+bode(C);
+title('Bode Plots of C');
+
+%Trends noticed:
+
+%As TI is increased, settling time increases and percent overshoot
+%decreases.
+
+%As initial_crossover increases, settling time decreases, percent overshoot
+%increases, and the magnitude decreases.
+
+
+Kaw=1/0.21;
+
+Vlim
