@@ -1,3 +1,5 @@
+%#ok<*NOPTS>
+
 %Defining parameters and plant model
 
 Ra = 3;
@@ -40,6 +42,10 @@ bode(C1_G, {1e-2,1e2});
 legend();
 hold off;
 
+%K
+%alpha
+%T
+
 %Design of controller C2(s)
 
 Ti = 10/Wcp_C1G;
@@ -50,8 +56,14 @@ C_G = C*G;
 
 [~, Pm_CG, ~, Wcp_CG] = margin(C_G);
 
+Wcp_C1G
+Wcp_CG
+Pm_C1G
+Pm_CG
+
 figure(2);
 bode((G/(1+C*G))); %The magitude plot is always below -34 dB
+title("Bode Diagram of G/(1+C*G)")
 
 T_R = (C*G)/(1+C*G);
 T_R = minreal(T_R);
@@ -61,11 +73,18 @@ T_D = minreal(T_D);
 figure(3);
 subplot(2,1,1);
 step(thetades*T_R);
+title('Step Response of thetades*T_R');
+
 
 subplot(2,1,2); 
-step(thetades*T_D);
+step(d_bar*T_D);
+title('Step Response of dbar*T_D');
 
 S = stepinfo(thetades*T_R);
+
+figure(4);
+bode(C);
+title('Bode Plots of C');
 
 %As TI is increased, settling time increases and percent overshoot
 %decreases.
